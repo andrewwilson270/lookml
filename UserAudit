@@ -1,0 +1,43 @@
+# This is a script to provide an audit trail of users permissions and model sets in Looker over time. 
+
+#Create a look from System Activity > User explore that contains the following fields:
+- User Name
+- Group Name
+- Role Name
+- Model Set Name
+- Is Disabled (Yes/No)
+- Is Admin (Yes/No)
+- Is Explorer (Yes/No)
+- Calculated "Date" with calcuation = date(extract_years(now()),extract_month(now()),extract_days(now()))
+
+#Schedule the look to be run once per day as an excel sheet.
+
+#Run the following script to create a single excel for audit analysis
+
+# import libraries
+import os
+import pandas as pd
+
+# import data
+path = os.getcwd()
+files = os.listdir(path)
+
+files_xlsx = [a for a in files if a[-4:] == 'xlsx']
+
+df1 = pd.DataFrame()
+
+for a in files_xlsx:
+  data1 = pd.read_excel(a,'sheet1')
+  df1 = df1.append(data1)
+
+# Data cleanup
+df2 = df1.drop(columns = ['Unnamed:0'])
+df3 = df2.rename(columns = {'Name':'User Name','Name.1':'Group Name','Name.2':'Role Name','Name.3':'Model Set Name'})
+
+# Rename and export the combined file
+writer = pd.ExcelWriter('CombinedData.xlsx', engine = 'xlsxrwriter')
+
+df3.to_excel(writer,sheet_name = 'sheet1')
+
+writer.save()
+
