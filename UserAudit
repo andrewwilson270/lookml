@@ -2,11 +2,13 @@
 
 #Create a look from System Activity > User explore that contains the following fields:
 - User Name
-- Group Name
+- Role Name
+- Model Set name
 - Is Disabled (Yes/No)
 - Is Admin (Yes/No)
 - Is Explorer (Yes/No)
 - Calculated "Date" with calcuation = date(extract_years(now()),extract_month(now()),extract_days(now()))
+- Filter by is not "All Users" - not tied to permissions
 
 #Schedule the look to be run once per day as an excel sheet.
 
@@ -30,7 +32,7 @@ for a in files_xlsx:
 
 # Data cleanup
 df2 = df1.drop(columns = ['Unnamed:0'])
-df3 = df2.rename(columns = {'Name':'User Name','Name.1':'Group Name','Name.2':'Role Name','Name.3':'Model Set Name'})
+df3 = df2.rename(columns = {'Name':'User Name','Name.1':'Role Name','Name.2':'Model Set Name'})
 
 # Rename and export the combined file
 writer = pd.ExcelWriter('CombinedData.xlsx', engine = 'xlsxrwriter')
