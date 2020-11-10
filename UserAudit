@@ -3,8 +3,6 @@
 #Create a look from System Activity > User explore that contains the following fields:
 - User Name
 - Group Name
-- Role Name
-- Model Set Name
 - Is Disabled (Yes/No)
 - Is Admin (Yes/No)
 - Is Explorer (Yes/No)
