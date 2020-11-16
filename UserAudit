@@ -17,6 +17,7 @@
 # import libraries
 import os
 import pandas as pd
+from datetime import date
 
 # import data
 path = os.getcwd()
@@ -35,7 +36,9 @@ df2 = df1.drop(columns = ['Unnamed:0'])
 df3 = df2.rename(columns = {'Name':'User Name','Name.1':'Role Name','Name.2':'Model Set Name'})
 
 # Rename and export the combined file
-writer = pd.ExcelWriter('CombinedData.xlsx', engine = 'xlsxrwriter')
+today = str(date.today())
+
+writer = pd.ExcelWriter(today + '_CombinedData.xlsx', engine = 'xlsxrwriter')
 
 df3.to_excel(writer,sheet_name = 'sheet1')
 
