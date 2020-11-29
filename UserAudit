@@ -1,3 +1,4 @@
+# Last updated: 2020/11/20
 # This is a script to provide an audit trail of users permissions and model sets in Looker over time. 
 
 #Create a look from System Activity > User explore that contains the following fields:
