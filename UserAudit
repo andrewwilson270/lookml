@@ -1,5 +1,8 @@
 # Last updated: 2020/11/20
-# This is a script to provide an audit trail of users permissions and model sets in Looker over time. 
+# One of the challenges with working on Looker is that it's very difficult to track user permission changes. 
+# Looker does not offer this functionality inside the product so we have to build one using Python.
+
+# This is a simple script to track an users permission sets and model sets over time. 
 
 #Create a look from System Activity > User explore that contains the following fields:
 - User Name
