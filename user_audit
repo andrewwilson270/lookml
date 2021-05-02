@@ -1,4 +1,6 @@
 # Last updated: 2020/11/20
+
+# Intro
 # One of the challenges with working on Looker is that it's very difficult to track user permission changes. 
 # Looker does not offer this functionality inside the product so we have to build one using Python.
 
