@@ -6,4 +6,3 @@ Including:
 - User Auditing query (user_audit)
 - Using parameters to offset data returned (parameter_offset_example)
 - Table Calculations (table_calcs)
-- Sample Template for models/views (template)
