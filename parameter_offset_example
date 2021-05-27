@@ -1,0 +1,31 @@
+# Intro
+# Looker has parameters that allow users to manipulate the data that is getting queried and returned.
+
+# One example is offsetting the datetime field to allow the user to choose the amount of offset applied to datetime in case of daylight savings etc.
+
+# 1) Create a parameter of type number with a default value of 0.
+
+parameter: offset_amount {
+  type:number
+  default_value:"0"
+}
+
+# 2) Create the original dimension.
+
+dimension: event_datetime {
+  type: date_time
+  sql:${TABLE}."EVENT_DATETIME";;
+  label:"Original Event DateTime"
+  convert_tz:no
+}
+
+# Create the dimension that you want the parameter to apply to
+
+dimension: event_datetime_adjusted {
+  type: date_time
+  sql:dateadd("minute",{% parameter offset_amount %},${TABLE}."EVENT_DATETIME");;
+  label:"Offset Event DateTime"
+  convert_tz:no
+}
+
+# Now you can input values to adjust the datetime displayed on the results.
