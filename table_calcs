@@ -1,0 +1,52 @@
+# Info: Table calculations are calculations on top of the data from the database.
+# They are useful for ad-hoc and bespoke analysis.
+# It's adviseable to replace these with a dimension for repeatable queries or larger datasets beyond the 5000 row limit. 
+
+# Docs: https://www.google.com/search?q=table+calculations+looker&oq=table+calculations+looker&aqs=chrome..69i57.2867j0j7&sourceid=chrome&ie=UTF-8
+
+# Table calculations depend on the application but are very flexible.
+
+# 1) Percent and Running Totals
+
+${count_metric}/${count_metric:total}
+
+running_total(${count_metric})
+
+# 2) Checks of data
+
+if (${count_metric>0,"Yes","No"})
+
+pivot_index(${count_metric},4)
+
+# 3) Multiple groupings within a custom dimension
+
+if(${dimension_1} = "A" OR ${dimension_1} = "B","A or B",if(${dimension_1} = "C" OR ${dimension_1} = "C","C or D",${dimension_1}))
+
+# 4) Hide to remove 0  values
+
+${measure_1}<1
+
+# 5) Analysis across pivot
+
+${count_metric}/pivot_offset(${count_metric},1)
+
+sum(pivot_row(${count_metric))
+
+mean(pivot_row(${count_metric))
+
+# 6) Handling nulls
+
+if(is_null(${count_metric},0,1))
+
+# 7) Percentile analysis
+
+percentile(${count_metric},0.25)
+
+median(${count_metric}}
+
+percentile(${count_metric},0.75)
+
+# 8) Check for matches between 2 dimensions where 1 has been pivoted 
+
+coalesce(pivot_where(${dimension_1}=${dimension_2},${count_metric}),0)
+
