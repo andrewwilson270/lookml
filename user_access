@@ -1,0 +1,49 @@
+Intro
+Looker manages user pemissions through a system of roles being assigned to model sets. 
+
+Within a model or view, you can then have access filter defined at column level or row-level
+
+Column Level access
+Column level access is when a user has access to a field or not. 
+
+This is handled using the user attribute and assigned access_grants to the dimension/measure and then creating a user attribute to handle groups/users.
+
+model file
+
+access_grant: my_access_grant {
+    user_attribute: [allowed_access]
+    allowed_values: ["true"]
+}
+
+view file
+
+dimension: my_dimension {
+    type: string
+    required_access_grants: [my_access_grant]
+    sql: ${TABLE}."MY_FIELD"
+}
+
+User Attributes
+
+- create an attribute and assign values
+
+Row level access
+
+Row level access is when a user has access to some values but not all within a specific field. 
+
+Ex. Sales managers in one part of the country vs sales managers in another part of the country.
+
+This is usually handled with a reference table that stores this data using email address and adding sql_always_where to ensure this table is checked. 
+
+explore: this_is_my_explore_name {
+
+  sql_always_where: ${region} in (select region from access_table where '{{user_attributes['email']}}' = email)
+
+}
+
+
+Docs
+
+https://docs.looker.com/reference/explore-params/sql_always_where
+
+https://docs.looker.com/reference/model-params/access_grant
